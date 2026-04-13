@@ -37,7 +37,7 @@ export default function About() {
       {/* Hero */}
       <section className="about-hero">
         <div className="about-hero-bg">
-          <img src="/team.png" alt="ShineX professional team" />
+          <img src={`${import.meta.env.BASE_URL}team.png`} alt="ShineX professional team" />
           <div className="about-hero-overlay" />
         </div>
         <div className="container about-hero-content">
@@ -59,7 +59,7 @@ export default function About() {
               <p>Our promise is simple: we treat every home like our own, with care, precision, and respect.</p>
             </div>
             <div className="about-story-image">
-              <img src="/hero_home_cleaning.png" alt="ShineX cleaning in action" />
+              <img src={`${import.meta.env.BASE_URL}hero_home_cleaning.png`} alt="ShineX cleaning in action" />
               <div className="about-story-card">
                 <div className="about-stats-mini">
                   {[
