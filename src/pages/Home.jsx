@@ -83,7 +83,7 @@ export default function Home() {
       {/* ── HERO ── */}
       <section className="hero" id="hero">
         <div className="hero-bg">
-          <img src="/hero_home_cleaning.png" alt="Professional home cleaning" />
+          <img src={`${import.meta.env.BASE_URL}hero_home_cleaning.png`} alt="Professional home cleaning" />
           <div className="hero-overlay" />
         </div>
         <div className="hero-content container">
@@ -168,7 +168,7 @@ export default function Home() {
             {/* Home Cleaning Card */}
             <div className="service-card" id="service-home-cleaning">
               <div className="service-card__image">
-                <img src="/hero_home_cleaning.png" alt="Home Cleaning Service" />
+                <img src={`${import.meta.env.BASE_URL}hero_home_cleaning.png`} alt="Home Cleaning Service" />
                 <div className="service-card__badge">Most Popular</div>
               </div>
               <div className="service-card__body">
@@ -199,7 +199,7 @@ export default function Home() {
             {/* Furniture Cleaning Card */}
             <div className="service-card" id="service-furniture-cleaning">
               <div className="service-card__image">
-                <img src="/furniture_cleaning.png" alt="Furniture Cleaning Service" />
+                <img src={`${import.meta.env.BASE_URL}furniture_cleaning.png`} alt="Furniture Cleaning Service" />
               </div>
               <div className="service-card__body">
                 <div className="service-icon" aria-hidden="true">
@@ -376,7 +376,7 @@ export default function Home() {
         <div className="container">
           <div className="team-inner">
             <div className="team-image">
-              <img src="/team.png" alt="ShineX professional cleaning team" />
+              <img src={`${import.meta.env.BASE_URL}team.png`} alt="ShineX professional cleaning team" />
               <div className="team-badge">
                 <strong>200+</strong>
                 <span>Certified Professionals</span>
@@ -403,7 +403,7 @@ export default function Home() {
       {/* ── CTA BANNER ── */}
       <section className="cta-banner" id="cta-banner">
         <div className="cta-bg">
-          <img src="/dubai_skyline.png" alt="Dubai skyline" />
+          <img src={`${import.meta.env.BASE_URL}dubai_skyline.png`} alt="Dubai skyline" />
           <div className="cta-overlay" />
         </div>
         <div className="container cta-content">

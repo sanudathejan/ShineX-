@@ -27,7 +27,7 @@ export default function Navbar() {
     <header className={`navbar${scrolled ? ' scrolled' : ''}`}>
       <div className="navbar-inner container">
         <Link to="/" className="navbar-logo" onClick={() => setMenuOpen(false)}>
-          <img src="/logo.jpeg" alt="ShineX Logo" />
+          <img src={`${import.meta.env.BASE_URL}logo.jpeg`} alt="ShineX Logo" />
           <span>Shine<strong>X</strong></span>
         </Link>
 

@@ -39,7 +39,7 @@ export default function Services() {
       {/* Hero */}
       <section className="services-hero">
         <div className="services-hero-bg">
-          <img src="/hero_home_cleaning.png" alt="Cleaning services" />
+          <img src={`${import.meta.env.BASE_URL}hero_home_cleaning.png`} alt="Cleaning services" />
           <div className="services-hero-overlay" />
         </div>
         <div className="container services-hero-content">
@@ -54,7 +54,7 @@ export default function Services() {
         <div className="container">
           <div className="service-detail-layout">
             <div className="service-detail-media">
-              <img src="/hero_home_cleaning.png" alt="Home Cleaning Service in Dubai" />
+              <img src={`${import.meta.env.BASE_URL}hero_home_cleaning.png`} alt="Home Cleaning Service in Dubai" />
               <div className="service-detail-media__badge">
                 <span>🏅</span> Most Popular Service
               </div>
@@ -149,7 +149,7 @@ export default function Services() {
               </Link>
             </div>
             <div className="service-detail-media">
-              <img src="/furniture_cleaning.png" alt="Furniture Cleaning Service in Dubai" />
+              <img src={`${import.meta.env.BASE_URL}furniture_cleaning.png`} alt="Furniture Cleaning Service in Dubai" />
             </div>
           </div>
 

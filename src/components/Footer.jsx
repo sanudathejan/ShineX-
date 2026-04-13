@@ -15,7 +15,7 @@ export default function Footer() {
             {/* Brand */}
             <div className="footer-brand">
               <div className="footer-logo">
-                <img src="/logo.jpeg" alt="ShineX" />
+                <img src={`${import.meta.env.BASE_URL}logo.jpeg`} alt="ShineX" />
                 <span>Shine<strong>X</strong></span>
               </div>
               <p>Dubai's premier cleaning service. Professional, reliable, and always sparkling clean.</p>
