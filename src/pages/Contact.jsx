@@ -1,10 +1,12 @@
 import { useState } from 'react';
+import { sendContactEmail } from '../services/emailService';
 import './Contact.css';
 
 export default function Contact() {
   const [form, setForm] = useState({ name: '', email: '', phone: '', subject: '', message: '' });
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
+  const [isSending, setIsSending] = useState(false);
 
   const setField = (f, v) => { setForm(prev => ({ ...prev, [f]: v })); setErrors(prev => ({ ...prev, [f]: '' })); };
 
@@ -18,9 +20,19 @@ export default function Contact() {
     return Object.keys(e).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (validate()) setSubmitted(true);
+    if (!validate()) return;
+
+    setIsSending(true);
+    try {
+      await sendContactEmail(form);
+      setSubmitted(true);
+    } catch (err) {
+      console.error('Contact email error:', err);
+    } finally {
+      setIsSending(false);
+    }
   };
 
   return (

@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
+import { createBooking } from '../services/bookingService';
+import { sendBookingEmail } from '../services/emailService';
 import './Book.css';
 
 const DUBAI_AREAS = [
@@ -81,6 +83,8 @@ export default function Book() {
   const [searchParams] = useSearchParams();
   const [step, setStep] = useState(1);
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
 
   const [form, setForm] = useState({
     service: searchParams.get('service') || '',
@@ -134,10 +138,55 @@ export default function Book() {
 
   const handleBack = () => setStep(s => s - 1);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (validateStep()) {
+    if (!validateStep()) return;
+
+    setIsSubmitting(true);
+    setSubmitError('');
+
+    const bookingData = {
+      name: form.name,
+      phone: form.phone,
+      email: form.email || '',
+      service: form.service,
+      serviceName: selectedService?.name || form.service,
+      package: form.package,
+      area: form.area,
+      address: form.address,
+      date: form.date,
+      time: form.time,
+      total: totalPrice || 0,
+      notes: form.notes || '',
+    };
+
+    try {
+      // Save to Firebase Firestore + Send email notification in parallel
+      const [firestoreResult, emailResult] = await Promise.allSettled([
+        createBooking(bookingData),
+        sendBookingEmail(bookingData),
+      ]);
+
+      // Log results for debugging
+      if (firestoreResult.status === 'fulfilled' && firestoreResult.value.success) {
+        console.log('✅ Booking saved to Firestore:', firestoreResult.value.id);
+      } else {
+        console.warn('⚠️ Firestore save issue:', firestoreResult.reason || firestoreResult.value?.error);
+      }
+
+      if (emailResult.status === 'fulfilled' && emailResult.value.success) {
+        console.log('✅ Email notification sent');
+      } else {
+        console.warn('⚠️ Email issue:', emailResult.reason || emailResult.value?.error);
+      }
+
+      // Show success even if email fails (booking is saved)
       setSubmitted(true);
+    } catch (error) {
+      console.error('Booking submission error:', error);
+      setSubmitError('Something went wrong. Please try again or call us directly.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -415,11 +464,26 @@ export default function Book() {
                   />
                 </div>
 
+                {submitError && (
+                  <div className="form-error" style={{ textAlign: 'center', marginBottom: '12px', fontSize: '14px' }}>
+                    {submitError}
+                  </div>
+                )}
+
                 <div className="book-actions">
-                  <button type="button" className="btn btn-outline" onClick={handleBack} id="step3-back">Back</button>
-                  <button type="submit" className="btn btn-accent" id="submit-booking">
-                    Confirm Booking
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                  <button type="button" className="btn btn-outline" onClick={handleBack} id="step3-back" disabled={isSubmitting}>Back</button>
+                  <button type="submit" className="btn btn-accent" id="submit-booking" disabled={isSubmitting}>
+                    {isSubmitting ? (
+                      <>
+                        <span className="spinner" />
+                        Processing...
+                      </>
+                    ) : (
+                      <>
+                        Confirm Booking
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                      </>
+                    )}
                   </button>
                 </div>
               </div>

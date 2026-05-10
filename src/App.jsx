@@ -7,6 +7,7 @@ import Services from './pages/Services';
 import Book from './pages/Book';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import Admin from './pages/Admin';
 import './index.css';
 
 // Scroll to top on page change
@@ -62,7 +63,12 @@ function AppRoutes() {
 export default function App() {
   return (
     <HashRouter>
-      <AppRoutes />
+      <Routes>
+        {/* Admin page — standalone, no navbar/footer */}
+        <Route path="/admin" element={<Admin />} />
+        {/* Public site */}
+        <Route path="/*" element={<AppRoutes />} />
+      </Routes>
     </HashRouter>
   );
 }
