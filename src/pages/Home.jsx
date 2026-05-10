@@ -95,7 +95,7 @@ export default function Home() {
             <span className="hero-gradient">to Shine</span>
           </h1>
           <p className="hero-desc animate-fadeInUp" style={{ animationDelay: '0.2s' }}>
-            Professional home & furniture cleaning across all of Dubai. Trusted by 5,000+ happy clients.
+            Professional home, furniture & car wash services across all of Dubai. Trusted by 5,000+ happy clients.
           </p>
 
           {/* Location Search */}
@@ -162,7 +162,7 @@ export default function Home() {
         <div className="container">
           <p className="section-eyebrow">What We Offer</p>
           <h2 className="section-title">Our Cleaning Services</h2>
-          <p className="section-subtitle">Two specialized services tailored to keep your Dubai home and furnishings in pristine condition.</p>
+          <p className="section-subtitle">Three specialized services tailored to keep your Dubai home, furnishings, and car in pristine condition.</p>
 
           <div className="services-grid">
             {/* Home Cleaning Card */}
@@ -208,7 +208,7 @@ export default function Home() {
                   </svg>
                 </div>
                 <h3>Furniture Cleaning</h3>
-                <p>Specialized deep cleaning for all types of furniture — sofas, chairs, mattresses, and more. We remove stains, allergens, and odors, restoring your furniture to like-new condition.</p>
+                <p>Specialized deep cleaning for all types of furniture — sofas, chairs, mattresses, and more. We remove stains, allergens, and odors.</p>
                 <ul className="service-features">
                   <li>✓ Sofa & upholstery cleaning</li>
                   <li>✓ Mattress deep cleaning</li>
@@ -221,6 +221,38 @@ export default function Home() {
                     <strong>AED 149</strong>
                   </div>
                   <Link to="/book?service=furniture-cleaning" className="btn btn-primary" id="book-furniture-cleaning">Book Now</Link>
+                </div>
+              </div>
+            </div>
+
+            {/* Car Wash Card */}
+            <div className="service-card" id="service-car-wash">
+              <div className="service-card__image">
+                <img src={`${import.meta.env.BASE_URL}hero_home_cleaning.png`} alt="Car Wash Service" />
+                <div className="service-card__badge">New</div>
+              </div>
+              <div className="service-card__body">
+                <div className="service-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                    <path d="M5 17h14M5 17a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1l2-3h8l2 3h1a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2M5 17v2h2v-2m10 0v2h2v-2"/>
+                    <circle cx="7.5" cy="12.5" r="1.5"/>
+                    <circle cx="16.5" cy="12.5" r="1.5"/>
+                  </svg>
+                </div>
+                <h3>Car Wash</h3>
+                <p>Professional car cleaning at your doorstep. From a quick exterior wash to a full interior & exterior detail — we make your car shine.</p>
+                <ul className="service-features">
+                  <li>✓ Normal cleaning — AED 29</li>
+                  <li>✓ Full inside & outside — AED 59</li>
+                  <li>✓ Mobile service at your location</li>
+                  <li>✓ Premium products used</li>
+                </ul>
+                <div className="service-card__footer">
+                  <div className="service-price">
+                    <span>From</span>
+                    <strong>AED 29</strong>
+                  </div>
+                  <Link to="/book?service=car-wash" className="btn btn-primary" id="book-car-wash">Book Now</Link>
                 </div>
               </div>
             </div>
@@ -278,9 +310,9 @@ export default function Home() {
 
           <div className="how-grid">
             {[
-              { step: '01', title: 'Choose Your Service', desc: 'Select Home Cleaning or Furniture Cleaning and pick your preferred date and time.' },
+              { step: '01', title: 'Choose Your Service', desc: 'Select Home Cleaning, Furniture Cleaning, or Car Wash and pick your preferred date and time.' },
               { step: '02', title: 'Book & Confirm', desc: 'Fill in your details. Receive an instant confirmation with your assigned professional.' },
-              { step: '03', title: 'Relax & Enjoy', desc: 'Our team arrives on time, cleans thoroughly, and leaves your home spotless.' },
+              { step: '03', title: 'Relax & Enjoy', desc: 'Our team arrives on time, cleans thoroughly, and leaves everything spotless.' },
             ].map((item, i) => (
               <div key={i} className="how-card">
                 <div className="how-step">{item.step}</div>

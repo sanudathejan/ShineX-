@@ -9,10 +9,10 @@
 }
 
 :root {
-  /* Brand Colors */
-  --primary: #00AEEF;
-  --primary-dark: #007BB5;
-  --primary-light: #E0F6FF;
+  /* Brand Colors — Warm Golden Yellow */
+  --primary: #D4A017;
+  --primary-dark: #B8860B;
+  --primary-light: #FFF8DC;
   --accent: #F5A623;
   --accent-light: #FFF3D6;
 
@@ -141,12 +141,12 @@ input, select, textarea {
 .btn-primary {
   background: linear-gradient(135deg, var(--primary), var(--primary-dark));
   color: var(--white);
-  box-shadow: 0 4px 20px rgba(0, 174, 239, 0.4);
+  box-shadow: 0 4px 20px rgba(212, 160, 23, 0.4);
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(0, 174, 239, 0.5);
+  box-shadow: 0 8px 30px rgba(212, 160, 23, 0.5);
 }
 
 .btn-accent {

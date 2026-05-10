@@ -76,8 +76,8 @@
   flex-shrink: 0;
 }
 
-.contact-card__icon.phone { background: #DBEAFE; }
-.contact-card__icon.phone svg { width: 20px; height: 20px; color: #2563EB; }
+.contact-card__icon.phone { background: var(--primary-light); }
+.contact-card__icon.phone svg { width: 20px; height: 20px; color: var(--primary); }
 
 .contact-card__icon.whatsapp { background: #DCFCE7; }
 .contact-card__icon.whatsapp svg { width: 20px; height: 20px; color: #16A34A; }
@@ -165,7 +165,7 @@
   outline: none;
   border-color: var(--primary);
   background: var(--white);
-  box-shadow: 0 0 0 3px rgba(0, 174, 239, 0.1);
+  box-shadow: 0 0 0 3px rgba(212, 160, 23, 0.1);
 }
 
 .form-group input.error,
@@ -201,7 +201,7 @@
   color: var(--white);
   border: none;
   cursor: pointer;
-  box-shadow: 0 4px 20px rgba(0, 174, 239, 0.35);
+  box-shadow: 0 4px 20px rgba(212, 160, 23, 0.35);
   transition: all 0.25s var(--ease);
   letter-spacing: 0.3px;
 }
@@ -214,8 +214,8 @@
 
 .contact-submit:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 28px rgba(0, 174, 239, 0.50);
-  background: linear-gradient(135deg, #18BDFF, var(--primary));
+  box-shadow: 0 8px 28px rgba(212, 160, 23, 0.50);
+  background: linear-gradient(135deg, #E0B020, var(--primary));
 }
 
 /* Success */
@@ -259,10 +259,15 @@
 /* Responsive */
 @media (max-width: 900px) {
   .contact-grid { grid-template-columns: 1fr; }
+  .contact-hero { padding: 48px 0; }
 }
 
 @media (max-width: 560px) {
   .contact-cards { grid-template-columns: 1fr; }
   .form-row { grid-template-columns: 1fr; }
   .contact-form-wrap { padding: 24px; }
+  .contact-hero h1 { font-size: 28px; }
+  .contact-hero p { font-size: 14px; }
+  .contact-info h2,
+  .contact-form-wrap h2 { font-size: 20px; }
 }

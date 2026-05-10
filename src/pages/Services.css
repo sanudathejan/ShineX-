@@ -26,7 +26,7 @@
 .services-hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(0,40,80,0.85), rgba(0,120,180,0.65));
+  background: linear-gradient(135deg, rgba(40,30,0,0.85), rgba(100,80,0,0.65));
 }
 
 .services-hero-content {
@@ -118,6 +118,11 @@
   color: #925A00;
 }
 
+.service-tag.carwash {
+  background: #E0F2FE;
+  color: #0369A1;
+}
+
 .service-detail-body h2 {
   font-family: var(--font-display);
   font-size: clamp(24px, 3vw, 36px);
@@ -194,6 +199,12 @@
   grid-template-columns: repeat(4, 1fr);
 }
 
+.carwash-packages {
+  grid-template-columns: repeat(2, 1fr);
+  max-width: 500px;
+  margin: 0 auto;
+}
+
 .package-card {
   background: var(--white);
   border: 1.5px solid var(--gray-200);
@@ -213,7 +224,7 @@
 .package-card.popular {
   border-color: var(--primary);
   background: var(--primary-light);
-  box-shadow: 0 0 0 3px rgba(0, 174, 239, 0.18);
+  box-shadow: 0 0 0 3px rgba(212, 160, 23, 0.18);
 }
 
 .package-badge {
@@ -284,14 +295,14 @@
 .services-cta-section { background: var(--gray-50); }
 
 .services-cta-card {
-  background: linear-gradient(135deg, var(--primary-light), #dbeafe);
+  background: linear-gradient(135deg, var(--primary-light), #FFF3D6);
   border-radius: var(--radius-xl);
   padding: 48px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 32px;
-  border: 1px solid rgba(0, 174, 239, 0.2);
+  border: 1px solid rgba(212, 160, 23, 0.2);
 }
 
 .services-cta-text h2 {
@@ -324,10 +335,20 @@
   .service-detail-layout.reverse { direction: ltr; }
   .packages-grid { grid-template-columns: repeat(2, 1fr); }
   .furniture-packages { grid-template-columns: repeat(2, 1fr); }
+  .carwash-packages { max-width: 100%; }
   .services-cta-card { flex-direction: column; align-items: flex-start; text-align: left; padding: 32px; }
+  .services-hero { height: 260px; }
+  .service-detail-media img { height: 300px; }
 }
 
 @media (max-width: 560px) {
   .packages-grid { grid-template-columns: 1fr 1fr; }
   .includes-tags { grid-template-columns: 1fr; }
+  .services-hero-content h1 { font-size: 28px; }
+  .services-hero-content p { font-size: 14px; }
+  .service-detail-media img { height: 240px; }
+  .services-cta-card { padding: 24px; }
+  .services-cta-text h2 { font-size: 20px; }
+  .services-cta-actions { flex-direction: column; width: 100%; }
+  .services-cta-actions .btn { width: 100%; justify-content: center; }
 }

@@ -50,6 +50,22 @@ const SERVICES = [
       { id: 'double_mattress', name: 'Double Mattress', price: 149 },
       { id: 'king_mattress', name: 'King Mattress', price: 189 },
     ]
+  },
+  {
+    id: 'car-wash',
+    name: 'Car Wash',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <path d="M5 17h14M5 17a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1l2-3h8l2 3h1a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2M5 17v2h2v-2m10 0v2h2v-2"/>
+        <circle cx="7.5" cy="12.5" r="1.5"/>
+        <circle cx="16.5" cy="12.5" r="1.5"/>
+      </svg>
+    ),
+    desc: 'Normal or full car cleaning at your location',
+    packages: [
+      { id: 'normal', name: 'Normal Cleaning', price: 29 },
+      { id: 'full', name: 'Full Cleaning', price: 59 },
+    ]
   }
 ];
 
@@ -179,7 +195,7 @@ export default function Book() {
       {/* Header */}
       <section className="book-header">
         <div className="container">
-          <p className="section-eyebrow" style={{ color: '#7DD3FC' }}>Easy Booking</p>
+          <p className="section-eyebrow" style={{ color: '#FFD700' }}>Easy Booking</p>
           <h1>Book Your Cleaning Service</h1>
           <p>Simple, fast, and confirmed in seconds</p>
         </div>
@@ -365,7 +381,7 @@ export default function Book() {
                       <input
                         id="phone-input"
                         type="tel"
-                        placeholder="50 123 4567"
+                        placeholder="55 664 5537"
                         value={form.phone}
                         onChange={e => setField('phone', e.target.value)}
                         className={errors.phone ? 'error' : ''}
@@ -468,8 +484,8 @@ export default function Book() {
 
             <div className="book-contact-help">
               <p>Need help?</p>
-              <a href="tel:+97145000000">+971 4 500 0000</a>
-              <a href="https://wa.me/97145000000" target="_blank" rel="noopener noreferrer">
+              <a href="tel:+971556645537">+971 55 664 5537</a>
+              <a href="https://wa.me/971556645537" target="_blank" rel="noopener noreferrer">
                 Chat on WhatsApp
               </a>
             </div>

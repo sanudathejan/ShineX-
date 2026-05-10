@@ -12,7 +12,7 @@
 .about-hero-bg img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
 .about-hero-overlay {
   position: absolute; inset: 0;
-  background: linear-gradient(135deg, rgba(0,40,80,0.88), rgba(0,100,160,0.65));
+  background: linear-gradient(135deg, rgba(40,30,0,0.88), rgba(100,80,0,0.65));
 }
 
 .about-hero-content { position: relative; z-index: 1; color: var(--white); }
@@ -125,6 +125,13 @@
   gap: 24px;
 }
 
+/* Single founder layout */
+.team-grid-single {
+  grid-template-columns: 1fr;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
 .team-card {
   background: var(--white);
   border-radius: var(--radius-lg);
@@ -140,13 +147,24 @@
   box-shadow: var(--shadow-lg);
 }
 
+.founder-card {
+  padding: 40px 32px;
+  border: 2px solid var(--primary-light);
+  box-shadow: var(--shadow-md);
+  background: linear-gradient(135deg, var(--white), var(--primary-light));
+}
+
+.founder-card:hover {
+  border-color: var(--primary);
+}
+
 .team-card__avatar {
-  width: 72px;
-  height: 72px;
+  width: 90px;
+  height: 90px;
   border-radius: 50%;
   background: linear-gradient(135deg, var(--primary), var(--primary-dark));
   color: var(--white);
-  font-size: 20px;
+  font-size: 28px;
   font-weight: 700;
   display: flex;
   align-items: center;
@@ -155,11 +173,67 @@
   font-family: var(--font-display);
 }
 
-.team-card h3 { font-size: 15px; font-weight: 700; color: var(--gray-900); margin-bottom: 4px; }
-.team-card p { font-size: 13px; color: var(--primary); font-weight: 500; }
+.team-card h3 { font-size: 20px; font-weight: 700; color: var(--gray-900); margin-bottom: 4px; }
+.team-card__role { font-size: 14px; color: var(--primary); font-weight: 600; margin-bottom: 20px; }
+.team-card p:not(.team-card__role) { font-size: 13px; color: var(--primary); font-weight: 500; }
+
+/* Team contact links */
+.team-card__contact {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.team-contact-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: var(--radius-full);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--gray-700);
+  background: var(--gray-50);
+  border: 1px solid var(--gray-200);
+  transition: all var(--duration) var(--ease);
+}
+
+.team-contact-link svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.team-contact-link:hover {
+  background: var(--primary-light);
+  border-color: var(--primary);
+  color: var(--primary-dark);
+}
+
+.whatsapp-link {
+  background: #DCFCE7;
+  border-color: #BBF7D0;
+  color: #16A34A;
+}
+
+.whatsapp-link svg {
+  color: #16A34A;
+}
+
+.whatsapp-link:hover {
+  background: #22C55E;
+  border-color: #22C55E;
+  color: var(--white);
+}
+
+.whatsapp-link:hover svg {
+  color: var(--white);
+}
 
 /* CTA */
-.about-cta { background: linear-gradient(135deg, var(--primary-light), #dbeafe); }
+.about-cta { background: linear-gradient(135deg, var(--primary-light), #FFF3D6); }
 
 .about-cta-inner {
   text-align: center;
@@ -188,11 +262,21 @@
   .about-story { grid-template-columns: 1fr; }
   .values-grid { grid-template-columns: 1fr 1fr; }
   .team-grid { grid-template-columns: 1fr 1fr; }
+  .about-hero { height: 280px; }
+  .about-hero-content h1 { font-size: 28px; }
 }
 
 @media (max-width: 560px) {
   .values-grid { grid-template-columns: 1fr; }
-  .team-grid { grid-template-columns: 1fr 1fr; }
+  .team-grid { grid-template-columns: 1fr; }
+  .team-grid-single { max-width: 100%; }
   .about-stats-mini { grid-template-columns: 1fr 1fr; gap: 8px; }
   .about-stat { border: none; }
+  .about-hero { height: 240px; }
+  .about-hero-content h1 { font-size: 24px; }
+  .about-hero-content p { font-size: 14px; }
+  .about-story-image img { height: 280px; }
+  .about-cta-inner { padding: 28px 20px; }
+  .about-cta-inner h2 { font-size: 22px; }
+  .founder-card { padding: 32px 20px; }
 }

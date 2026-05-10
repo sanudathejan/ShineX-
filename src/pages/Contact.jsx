@@ -28,7 +28,7 @@ export default function Contact() {
       {/* Hero */}
       <section className="contact-hero">
         <div className="container">
-          <p className="section-eyebrow" style={{ color: '#7DD3FC' }}>Get In Touch</p>
+          <p className="section-eyebrow" style={{ color: '#FFD700' }}>Get In Touch</p>
           <h1>Contact Us</h1>
           <p>We'd love to hear from you. Reach out any time!</p>
         </div>
@@ -50,7 +50,8 @@ export default function Contact() {
                 </div>
                 <div>
                   <h4>Phone</h4>
-                  <a href="tel:+97145000000">+971 4 500 0000</a>
+                  <a href="tel:+971556645537">+971 55 664 5537</a>
+                  <a href="tel:+971564305653">+971 56 430 5653</a>
                   <p>Sun – Thu: 8AM to 8PM</p>
                 </div>
               </div>
@@ -63,7 +64,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <h4>WhatsApp</h4>
-                  <a href="https://wa.me/97145000000" target="_blank" rel="noopener noreferrer">
+                  <a href="https://wa.me/971556645537" target="_blank" rel="noopener noreferrer">
                     Chat with us
                   </a>
                   <p>Quick response guaranteed</p>
@@ -138,7 +139,7 @@ export default function Contact() {
                 <div className="form-row">
                   <div className="form-group">
                     <label htmlFor="contact-phone">Phone Number *</label>
-                    <input id="contact-phone" type="tel" placeholder="+971 50 000 0000" value={form.phone} onChange={e => setField('phone', e.target.value)} className={errors.phone ? 'error' : ''} />
+                    <input id="contact-phone" type="tel" placeholder="+971 55 664 5537" value={form.phone} onChange={e => setField('phone', e.target.value)} className={errors.phone ? 'error' : ''} />
                     {errors.phone && <p className="form-error">{errors.phone}</p>}
                   </div>
                   <div className="form-group">

@@ -32,8 +32,8 @@
   background: linear-gradient(
     135deg,
     rgba(10, 20, 40, 0.80) 0%,
-    rgba(0, 80, 140, 0.60) 60%,
-    rgba(0, 174, 239, 0.25) 100%
+    rgba(80, 60, 0, 0.60) 60%,
+    rgba(212, 160, 23, 0.25) 100%
   );
 }
 
@@ -77,7 +77,7 @@
 }
 
 .hero-gradient {
-  background: linear-gradient(90deg, #00AEEF, #7DD3FC, #F5A623);
+  background: linear-gradient(90deg, #D4A017, #FFD700, #F5A623);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -111,6 +111,7 @@
 .search-row {
   display: flex;
   gap: 12px;
+  align-items: stretch;
 }
 
 .search-input-wrap {
@@ -185,10 +186,24 @@
   color: var(--primary-dark);
 }
 
+/* Book Now button fix for hero */
 .search-btn {
   flex-shrink: 0;
-  padding: 12px 24px;
+  padding: 12px 28px;
   font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  border-radius: var(--radius-full);
+  height: auto;
+  align-self: stretch;
+}
+
+.search-btn svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
 }
 
 /* Trust badges */
@@ -251,8 +266,8 @@
 /* ── SERVICES ── */
 .services-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 32px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
 }
 
 .service-card {
@@ -271,7 +286,7 @@
 
 .service-card__image {
   position: relative;
-  height: 240px;
+  height: 200px;
   overflow: hidden;
 }
 
@@ -299,7 +314,7 @@
 }
 
 .service-card__body {
-  padding: 28px;
+  padding: 24px;
 }
 
 .service-icon {
@@ -321,7 +336,7 @@
 
 .service-card__body h3 {
   font-family: var(--font-display);
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 700;
   color: var(--gray-900);
   margin-bottom: 10px;
@@ -354,6 +369,8 @@
   justify-content: space-between;
   padding-top: 20px;
   border-top: 1px solid var(--gray-100);
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
 .service-price {
@@ -545,7 +562,7 @@
 
 .review-card.active {
   border-color: var(--primary);
-  box-shadow: 0 8px 30px rgba(0, 174, 239, 0.15);
+  box-shadow: 0 8px 30px rgba(212, 160, 23, 0.15);
   transform: translateY(-4px);
 }
 
@@ -766,7 +783,7 @@
 .cta-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(0,80,140,0.85), rgba(0,10,30,0.75));
+  background: linear-gradient(135deg, rgba(80,60,0,0.85), rgba(0,10,30,0.75));
 }
 
 .cta-content {
@@ -801,24 +818,48 @@
   .why-grid { grid-template-columns: repeat(2, 1fr); }
   .reviews-carousel { grid-template-columns: repeat(2, 1fr); }
   .map-container { grid-template-columns: 1fr; }
+  .services-grid { grid-template-columns: 1fr 1fr; }
 }
 
 @media (max-width: 768px) {
   .home { padding-top: 64px; }
   .hero-content { padding-top: 60px; padding-bottom: 100px; }
-  .hero-title { font-size: 36px; }
+  .hero-title { font-size: 32px; letter-spacing: -0.5px; }
+  .hero-desc { font-size: 15px; margin-bottom: 24px; }
+  .hero-search { padding: 16px; max-width: 100%; }
+  .search-label { font-size: 12px; margin-bottom: 10px; }
   .services-grid { grid-template-columns: 1fr; }
   .why-grid { grid-template-columns: 1fr 1fr; }
   .how-grid { flex-direction: column; }
   .how-arrow { display: none; }
-  .reviews-carousel { grid-template-columns: 1fr 1fr; }
-  .team-inner { grid-template-columns: 1fr; }
-  .search-row { flex-direction: column; }
-  .search-btn { width: 100%; justify-content: center; }
+  .reviews-carousel { grid-template-columns: 1fr; }
+  .team-inner { grid-template-columns: 1fr; gap: 32px; }
+  .team-image img { height: 300px; }
+  .search-row { flex-direction: column; gap: 10px; }
+  .search-btn { width: 100%; justify-content: center; padding: 14px 24px; }
+  .hero-trust { gap: 12px; font-size: 12px; }
+  .stats-row { gap: 12px; }
+  .stat-item strong { font-size: 22px; }
+  .stat-item span { font-size: 11px; }
+  .cta-banner { padding: 60px 0; }
+  .cta-content h2 { font-size: 24px; }
+  .cta-content p { font-size: 15px; margin-bottom: 24px; }
+  .service-card__image { height: 180px; }
+  .service-card__body { padding: 20px; }
+  .service-card__body h3 { font-size: 18px; }
+  .map-areas-list { padding: 16px; }
+  .how-card { padding: 24px 16px; }
+  .how-step { font-size: 36px; }
 }
 
 @media (max-width: 560px) {
   .why-grid { grid-template-columns: 1fr; }
   .reviews-carousel { grid-template-columns: 1fr; }
-  .stats-row { gap: 16px; }
+  .stats-row { gap: 8px; }
+  .stat-item strong { font-size: 20px; }
+  .hero-title { font-size: 28px; }
+  .hero-desc { font-size: 14px; }
+  .hero-badge { font-size: 11px; padding: 4px 12px; }
+  .service-card__footer { flex-direction: column; align-items: flex-start; }
+  .service-card__footer .btn { width: 100%; justify-content: center; }
 }

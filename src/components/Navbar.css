@@ -90,7 +90,7 @@
 
 .nav-cta:hover {
   transform: translateY(-1px);
-  box-shadow: 0 4px 16px rgba(0, 174, 239, 0.35) !important;
+  box-shadow: 0 4px 16px rgba(212, 160, 23, 0.35) !important;
 }
 
 /* Hamburger */
@@ -157,4 +157,9 @@
     text-align: center;
     margin-top: 8px;
   }
+
+  .navbar { padding: 12px 0; }
+  .navbar.scrolled { padding: 8px 0; }
+  .navbar-logo img { width: 36px; height: 36px; }
+  .navbar-logo span { font-size: 20px; }
 }
