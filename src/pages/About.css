@@ -12,7 +12,7 @@
 .about-hero-bg img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
 .about-hero-overlay {
   position: absolute; inset: 0;
-  background: linear-gradient(135deg, rgba(40,30,0,0.88), rgba(100,80,0,0.65));
+  background: linear-gradient(135deg, rgba(0,30,15,0.88), rgba(0,80,40,0.65));
 }
 
 .about-hero-content { position: relative; z-index: 1; color: var(--white); }
@@ -233,7 +233,7 @@
 }
 
 /* CTA */
-.about-cta { background: linear-gradient(135deg, var(--primary-light), #FFF3D6); }
+.about-cta { background: linear-gradient(135deg, var(--primary-light), #C8E6C9); }
 
 .about-cta-inner {
   text-align: center;

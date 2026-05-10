@@ -165,7 +165,7 @@
   outline: none;
   border-color: var(--primary);
   background: var(--white);
-  box-shadow: 0 0 0 3px rgba(212, 160, 23, 0.1);
+  box-shadow: 0 0 0 3px rgba(67, 160, 71, 0.1);
 }
 
 .form-group input.error,
@@ -201,7 +201,7 @@
   color: var(--white);
   border: none;
   cursor: pointer;
-  box-shadow: 0 4px 20px rgba(212, 160, 23, 0.35);
+  box-shadow: 0 4px 20px rgba(67, 160, 71, 0.35);
   transition: all 0.25s var(--ease);
   letter-spacing: 0.3px;
 }
@@ -214,8 +214,8 @@
 
 .contact-submit:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 28px rgba(212, 160, 23, 0.50);
-  background: linear-gradient(135deg, #E0B020, var(--primary));
+  box-shadow: 0 8px 28px rgba(67, 160, 71, 0.50);
+  background: linear-gradient(135deg, #66BB6A, var(--primary));
 }
 
 /* Success */

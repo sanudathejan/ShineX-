@@ -195,7 +195,7 @@ export default function Book() {
       {/* Header */}
       <section className="book-header">
         <div className="container">
-          <p className="section-eyebrow" style={{ color: '#FFD700' }}>Easy Booking</p>
+          <p className="section-eyebrow" style={{ color: '#81C784' }}>Easy Booking</p>
           <h1>Book Your Cleaning Service</h1>
           <p>Simple, fast, and confirmed in seconds</p>
         </div>

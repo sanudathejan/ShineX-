@@ -28,7 +28,7 @@ export default function Contact() {
       {/* Hero */}
       <section className="contact-hero">
         <div className="container">
-          <p className="section-eyebrow" style={{ color: '#FFD700' }}>Get In Touch</p>
+          <p className="section-eyebrow" style={{ color: '#81C784' }}>Get In Touch</p>
           <h1>Contact Us</h1>
           <p>We'd love to hear from you. Reach out any time!</p>
         </div>

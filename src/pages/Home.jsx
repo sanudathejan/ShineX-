@@ -228,7 +228,7 @@ export default function Home() {
             {/* Car Wash Card */}
             <div className="service-card" id="service-car-wash">
               <div className="service-card__image">
-                <img src={`${import.meta.env.BASE_URL}hero_home_cleaning.png`} alt="Car Wash Service" />
+                <img src={`${import.meta.env.BASE_URL}car_wash.png`} alt="Car Wash Service" />
                 <div className="service-card__badge">New</div>
               </div>
               <div className="service-card__body">

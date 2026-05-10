@@ -53,7 +53,7 @@ export default function Services() {
           <div className="services-hero-overlay" />
         </div>
         <div className="container services-hero-content">
-          <p className="section-eyebrow" style={{ color: '#FFD700' }}>What We Offer</p>
+          <p className="section-eyebrow" style={{ color: '#81C784' }}>What We Offer</p>
           <h1>Our Cleaning Services</h1>
           <p>Three specialized services to keep your Dubai home, furniture, and car spotless.</p>
         </div>
@@ -192,7 +192,7 @@ export default function Services() {
         <div className="container">
           <div className="service-detail-layout">
             <div className="service-detail-media">
-              <img src={`${import.meta.env.BASE_URL}hero_home_cleaning.png`} alt="Car Wash Service in Dubai" />
+              <img src={`${import.meta.env.BASE_URL}car_wash.png`} alt="Car Wash Service in Dubai" />
               <div className="service-detail-media__badge">
                 <span>🚗</span> New Service
               </div>

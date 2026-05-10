@@ -34,7 +34,7 @@ export default function About() {
           <div className="about-hero-overlay" />
         </div>
         <div className="container about-hero-content">
-          <p className="section-eyebrow" style={{ color: '#FFD700' }}>About Us</p>
+          <p className="section-eyebrow" style={{ color: '#81C784' }}>About Us</p>
           <h1>Cleaning Dubai, One Home at a Time</h1>
           <p>Professional, trusted, and passionate about clean spaces.</p>
         </div>
