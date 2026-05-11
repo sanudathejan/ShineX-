@@ -85,6 +85,7 @@ export default function Footer() {
             <div className="footer-bottom-links">
               <a href="#">Privacy Policy</a>
               <a href="#">Terms of Service</a>
+              <Link to="/admin" style={{ opacity: 0.5, marginLeft: '16px' }}>Admin Login</Link>
             </div>
           </div>
         </div>

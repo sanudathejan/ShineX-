@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://sanudathejan.github.io/ShineX-/",
+  "homepage": "https://shinex.best",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
