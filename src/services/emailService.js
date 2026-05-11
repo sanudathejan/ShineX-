@@ -1,70 +1,67 @@
 import emailjs from '@emailjs/browser';
 
-// EmailJS credentials
-const SERVICE_ID = 'service_d7q7epg';
-const TEMPLATE_ID = 'template_l0lf9xd';
-const PUBLIC_KEY = 'WHI-btgOVeTxGRQDW';
+// ── Booking Orders → connect.shinex@gmail.com ──────────────────
+const BOOKING_SERVICE_ID  = 'service_d7q7epg';
+const BOOKING_TEMPLATE_ID = 'template_e1du9df';
+const BOOKING_PUBLIC_KEY  = 'WHI-btgOVeTxGRQDW';
+
+// ── Contact Messages → reviews.shinex@gmail.com ────────────────
+const CONTACT_SERVICE_ID  = 'service_u2c4mhn';
+const CONTACT_TEMPLATE_ID = 'template_zprhgji';
+const CONTACT_PUBLIC_KEY  = '8WTvlCh_YY73ZJUJU';
 
 /**
- * Send booking notification email via EmailJS
- * The template variables must match your EmailJS template fields
+ * Booking form → sends to connect.shinex@gmail.com
  */
 export async function sendBookingEmail(bookingData) {
-  try {
-    const templateParams = {
-      // Customer info
-      customer_name: bookingData.name || 'N/A',
-      customer_phone: bookingData.phone || 'N/A',
-      customer_email: bookingData.email || 'N/A',
+  const templateParams = {
+    to_name:    'Dhanushka',
+    from_name:  bookingData.name  || 'N/A',
+    from_email: bookingData.email || 'N/A',
+    phone:      bookingData.phone || 'N/A',
+    message: [
+      `Service : ${bookingData.serviceName || bookingData.service || 'N/A'}`,
+      `Package : ${bookingData.package  || 'N/A'}`,
+      `Area    : ${bookingData.area     || 'N/A'}`,
+      `Address : ${bookingData.address  || 'N/A'}`,
+      `Date    : ${bookingData.date     || 'N/A'}`,
+      `Time    : ${bookingData.time     || 'N/A'}`,
+      `Total   : AED ${bookingData.total || 0}`,
+      `Notes   : ${bookingData.notes    || 'None'}`,
+    ].join('\n'),
+  };
 
-      // Booking info
-      service_name: bookingData.serviceName || bookingData.service || 'N/A',
-      package_name: bookingData.package || 'N/A',
-      area: bookingData.area || 'N/A',
-      address: bookingData.address || 'N/A',
-      date: bookingData.date || 'N/A',
-      time: bookingData.time || 'N/A',
-      total: bookingData.total ? `AED ${bookingData.total}` : 'N/A',
-      notes: bookingData.notes || 'None',
-
-      // For the "to" field in EmailJS template
-      to_name: 'Dhanushka',
-    };
-
-    const result = await emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams, PUBLIC_KEY);
-    console.log('Email sent successfully:', result.text);
-    return { success: true };
-  } catch (error) {
-    console.error('Email sending failed:', error);
-    return { success: false, error: error.text || error.message };
-  }
+  const result = await emailjs.send(
+    BOOKING_SERVICE_ID,
+    BOOKING_TEMPLATE_ID,
+    templateParams,
+    BOOKING_PUBLIC_KEY,
+  );
+  console.log('✅ Booking email sent to connect.shinex@gmail.com:', result.text);
+  return { success: true };
 }
 
 /**
- * Send contact form message via EmailJS
+ * Contact form → sends to reviews.shinex@gmail.com
  */
 export async function sendContactEmail(contactData) {
-  try {
-    const templateParams = {
-      customer_name: contactData.name || 'N/A',
-      customer_phone: contactData.phone || 'N/A',
-      customer_email: contactData.email || 'N/A',
-      service_name: 'Contact Form Message',
-      package_name: contactData.subject || 'General',
-      area: 'N/A',
-      address: 'N/A',
-      date: new Date().toLocaleDateString(),
-      time: new Date().toLocaleTimeString(),
-      total: 'N/A',
-      notes: contactData.message || 'No message',
-      to_name: 'Dhanushka',
-    };
+  const templateParams = {
+    to_name:    'Dhanushka',
+    from_name:  contactData.name  || 'N/A',
+    from_email: contactData.email || 'N/A',
+    phone:      contactData.phone || 'N/A',
+    message: [
+      `Subject : ${contactData.subject || 'General Inquiry'}`,
+      `Message : ${contactData.message || 'No message'}`,
+    ].join('\n'),
+  };
 
-    const result = await emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams, PUBLIC_KEY);
-    console.log('Contact email sent:', result.text);
-    return { success: true };
-  } catch (error) {
-    console.error('Contact email failed:', error);
-    return { success: false, error: error.text || error.message };
-  }
+  const result = await emailjs.send(
+    CONTACT_SERVICE_ID,
+    CONTACT_TEMPLATE_ID,
+    templateParams,
+    CONTACT_PUBLIC_KEY,
+  );
+  console.log('✅ Contact email sent to reviews.shinex@gmail.com:', result.text);
+  return { success: true };
 }

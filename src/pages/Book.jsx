@@ -231,6 +231,8 @@ export default function Book() {
 
             <p className="success-note">
               Our team will contact you at <strong>{form.phone}</strong> to confirm your booking within 30 minutes.
+              <br/><br/>
+              <span style={{ color: 'var(--primary-dark)', fontWeight: '500' }}>📸 Capture a screenshot of your booking details for your convenience.</span>
             </p>
             <Link to="/" className="btn btn-primary" id="success-go-home">Back to Home</Link>
           </div>

@@ -7,6 +7,7 @@ export default function Contact() {
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
   const [isSending, setIsSending] = useState(false);
+  const [sendError, setSendError] = useState('');
 
   const setField = (f, v) => { setForm(prev => ({ ...prev, [f]: v })); setErrors(prev => ({ ...prev, [f]: '' })); };
 
@@ -25,11 +26,13 @@ export default function Contact() {
     if (!validate()) return;
 
     setIsSending(true);
+    setSendError('');
     try {
       await sendContactEmail(form);
       setSubmitted(true);
     } catch (err) {
       console.error('Contact email error:', err);
+      setSendError('Failed to send message. Please try calling us directly at +971 55 664 5537.');
     } finally {
       setIsSending(false);
     }
@@ -92,7 +95,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <h4>Email</h4>
-                  <a href="mailto:hello@shinex.ae">hello@shinex.ae</a>
+                  <a href="mailto:connect.shinex@gmail.com">connect.shinex@gmail.com</a>
                   <p>We reply within 24 hours</p>
                 </div>
               </div>
@@ -176,11 +179,22 @@ export default function Contact() {
                   <textarea id="contact-message" rows={5} placeholder="Write your message here..." value={form.message} onChange={e => setField('message', e.target.value)} className={errors.message ? 'error' : ''} />
                   {errors.message && <p className="form-error">{errors.message}</p>}
                 </div>
-                <button type="submit" className="btn btn-primary contact-submit" id="contact-submit-btn">
-                  Send Message
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
-                  </svg>
+                {sendError && (
+                  <p style={{ color: '#EF4444', fontSize: '13px', marginBottom: '12px', padding: '10px 14px', background: '#FEF2F2', borderRadius: '8px' }}>
+                    ⚠️ {sendError}
+                  </p>
+                )}
+                <button type="submit" className="btn btn-primary contact-submit" id="contact-submit-btn" disabled={isSending}>
+                  {isSending ? (
+                    <><span className="spinner" style={{ borderTopColor: 'white', borderColor: 'rgba(255,255,255,0.3)' }} /> Sending...</>
+                  ) : (
+                    <>
+                      Send Message
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                      </svg>
+                    </>
+                  )}
                 </button>
               </form>
             )}
