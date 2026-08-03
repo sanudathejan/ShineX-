@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import './Home.css';
 
@@ -49,28 +49,41 @@ const STATS = [
 
 export default function Home() {
   const [areaSearch, setAreaSearch] = useState('');
-  const [filteredAreas, setFilteredAreas] = useState([]);
   const [selectedArea, setSelectedArea] = useState('');
   const [showDropdown, setShowDropdown] = useState(false);
   const [currentReview, setCurrentReview] = useState(0);
+  const [reviewsPaused, setReviewsPaused] = useState(false);
+  const searchWrapRef = useRef(null);
 
-  useEffect(() => {
-    if (areaSearch.length > 1) {
-      setFilteredAreas(
-        DUBAI_AREAS.filter(a => a.toLowerCase().includes(areaSearch.toLowerCase()))
-      );
-      setShowDropdown(true);
-    } else {
-      setShowDropdown(false);
-    }
+  // Derived from areaSearch on render instead of copied into state via an
+  // effect — avoids the extra render pass and the "setState in effect" lint
+  // warning that comes with it.
+  const filteredAreas = useMemo(() => {
+    if (areaSearch.length <= 1) return [];
+    return DUBAI_AREAS.filter(a => a.toLowerCase().includes(areaSearch.toLowerCase()));
   }, [areaSearch]);
 
+  // Close the suggestions dropdown when clicking anywhere outside it — it
+  // previously only closed on selecting an option or clearing the input, so
+  // clicking elsewhere on the page left it open indefinitely.
   useEffect(() => {
+    if (!showDropdown) return;
+    const handler = (e) => {
+      if (searchWrapRef.current && !searchWrapRef.current.contains(e.target)) {
+        setShowDropdown(false);
+      }
+    };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, [showDropdown]);
+
+  useEffect(() => {
+    if (reviewsPaused) return;
     const timer = setInterval(() => {
       setCurrentReview(prev => (prev + 1) % REVIEWS.length);
     }, 4000);
     return () => clearInterval(timer);
-  }, []);
+  }, [reviewsPaused]);
 
   const handleAreaSelect = (area) => {
     setSelectedArea(area);
@@ -102,7 +115,7 @@ export default function Home() {
           <div className="hero-search animate-fadeInUp" style={{ animationDelay: '0.3s' }}>
             <div className="search-label">Where would you like us to clean?</div>
             <div className="search-row">
-              <div className="search-input-wrap">
+              <div className="search-input-wrap" ref={searchWrapRef}>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="search-icon">
                   <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
                 </svg>
@@ -111,13 +124,14 @@ export default function Home() {
                   id="hero-location-search"
                   placeholder="Search area, e.g. Dubai Marina..."
                   value={areaSearch}
-                  onChange={e => setAreaSearch(e.target.value)}
+                  onChange={e => { setAreaSearch(e.target.value); setShowDropdown(true); }}
                   onFocus={() => areaSearch.length > 1 && setShowDropdown(true)}
+                  autoComplete="off"
                 />
                 {showDropdown && filteredAreas.length > 0 && (
                   <div className="area-dropdown">
                     {filteredAreas.map(area => (
-                      <button key={area} onClick={() => handleAreaSelect(area)} className="area-option">
+                      <button key={area} type="button" onClick={() => handleAreaSelect(area)} className="area-option">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                           <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
                         </svg>
@@ -127,7 +141,10 @@ export default function Home() {
                   </div>
                 )}
               </div>
-              <Link to="/book" className="btn btn-accent search-btn">
+              <Link
+                to={selectedArea ? `/book?area=${encodeURIComponent(selectedArea)}` : '/book'}
+                className="btn btn-accent search-btn"
+              >
                 Book Now
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
               </Link>
@@ -341,7 +358,11 @@ export default function Home() {
             {'★★★★★'} <strong>4.9</strong> out of 5 based on 2,400+ reviews
           </div>
 
-          <div className="reviews-carousel">
+          <div
+            className="reviews-carousel"
+            onMouseEnter={() => setReviewsPaused(true)}
+            onMouseLeave={() => setReviewsPaused(false)}
+          >
             {REVIEWS.map((r, i) => (
               <div
                 key={i}
@@ -365,10 +386,12 @@ export default function Home() {
             {REVIEWS.map((_, i) => (
               <button
                 key={i}
+                type="button"
                 id={`review-dot-${i}`}
                 className={`review-dot${i === currentReview ? ' active' : ''}`}
                 onClick={() => setCurrentReview(i)}
                 aria-label={`Review ${i + 1}`}
+                aria-current={i === currentReview}
               />
             ))}
           </div>

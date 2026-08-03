@@ -1,49 +1,68 @@
-import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import {
+  HOME_CLEANING_PACKAGES, FURNITURE_PACKAGES, CAR_WASH_PACKAGES,
+  HOME_CLEANING_INCLUSIONS, FURNITURE_INCLUSIONS, CAR_WASH_INCLUSIONS,
+} from '../data/services';
 import './Services.css';
 
-const HOME_CLEANING_INCLUSIONS = [
-  'Living Room & Common Areas', 'Kitchen & Appliances', 'Bathrooms & Toilets',
-  'Bedrooms & Wardrobes', 'Windows (interior)', 'Balcony Sweep',
-  'Dusting & Vacuuming', 'Mopping & Floor Cleaning'
-];
+// Deep-link targets for the /services/* alias routes (linked from the footer)
+const SECTION_ID_BY_PATH = {
+  '/services/home-cleaning': 'home-cleaning',
+  '/services/furniture-cleaning': 'furniture-cleaning',
+  '/services/car-wash': 'car-wash',
+};
+const NAVBAR_OFFSET = 88; // clears the fixed navbar so the section heading isn't hidden under it
 
-const FURNITURE_INCLUSIONS = [
-  'Sofa & Couch Cleaning', 'Armchairs & Recliners', 'Mattress Deep Clean',
-  'Dining Chairs', 'Office Chairs', 'Curtain Cleaning',
-  'Stain & Odor Removal', 'Allergen Treatment'
-];
+/**
+ * One package card. Fixed-price packages link straight into the booking flow;
+ * packages marked `custom` (no set price, e.g. "Villa / Custom") link to a
+ * quote request on the Contact page instead — the booking form can't total
+ * up a price that doesn't exist.
+ */
+function PackageCard({ pkg, serviceId }) {
+  const priceLabel = pkg.custom
+    ? (pkg.priceFrom ? `From AED ${pkg.priceFrom}` : 'Contact Us')
+    : `AED ${pkg.price}`;
 
-const CAR_WASH_INCLUSIONS = [
-  'Exterior Hand Wash', 'Interior Vacuuming', 'Dashboard & Console Wipe',
-  'Window Cleaning', 'Tire & Rim Cleaning', 'Air Freshener'
-];
-
-const HOME_PACKAGES = [
-  { name: 'Studio', hours: '2 hrs', price: 'AED 199', rooms: '1 Room + 1 Bath' },
-  { name: '1 Bedroom', hours: '3 hrs', price: 'AED 249', rooms: '1 Bed + 1 Bath' },
-  { name: '2 Bedrooms', hours: '4 hrs', price: 'AED 329', rooms: '2 Beds + 2 Baths' },
-  { name: '3 Bedrooms', hours: '5 hrs', price: 'AED 419', rooms: '3 Beds + 2 Baths', popular: true },
-  { name: '4 Bedrooms', hours: '7 hrs', price: 'AED 549', rooms: '4 Beds + 3 Baths' },
-  { name: 'Villa / Custom', hours: 'Custom', price: 'Contact Us', rooms: 'All sizes' },
-];
-
-const FURNITURE_PACKAGES = [
-  { name: '2-Seater Sofa', price: 'AED 149' },
-  { name: '3-Seater Sofa', price: 'AED 189' },
-  { name: 'L-Shape Sofa', price: 'AED 249' },
-  { name: 'Single Mattress', price: 'AED 99' },
-  { name: 'Double Mattress', price: 'AED 149' },
-  { name: 'King Mattress', price: 'AED 189', popular: true },
-  { name: 'Dining Chair Set (4)', price: 'AED 179' },
-  { name: 'Full Furniture Set', price: 'From AED 399' },
-];
-
-const CAR_WASH_PACKAGES = [
-  { name: 'Normal Cleaning', price: 'AED 29', desc: 'Quick exterior wash' },
-  { name: 'Full Cleaning', price: 'AED 59', desc: 'Inside & outside', popular: true },
-];
+  return (
+    <div className={`package-card${pkg.popular ? ' popular' : ''}`}>
+      {pkg.popular && <div className="package-badge">Best Value</div>}
+      <h4>{pkg.name}</h4>
+      {pkg.rooms && <p className="pkg-rooms">{pkg.rooms}</p>}
+      {pkg.desc && <p className="pkg-rooms">{pkg.desc}</p>}
+      {pkg.hours && (
+        <div className="pkg-hours">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+          </svg>
+          {pkg.hours}
+        </div>
+      )}
+      <div className="pkg-price">{priceLabel}</div>
+      {pkg.custom ? (
+        <Link to="/contact?subject=quote" className="btn btn-outline pkg-btn">Get a Quote</Link>
+      ) : (
+        <Link to={`/book?service=${serviceId}&package=${encodeURIComponent(pkg.name)}`} className="btn btn-outline pkg-btn">Book</Link>
+      )}
+    </div>
+  );
+}
 
 export default function Services() {
+  const location = useLocation();
+
+  // The footer links to /services/home-cleaning etc. — scroll to that
+  // section once the page (and ScrollToTop's reset-to-top) has settled.
+  useEffect(() => {
+    const sectionId = SECTION_ID_BY_PATH[location.pathname];
+    if (!sectionId) return;
+    const el = document.getElementById(sectionId);
+    if (!el) return;
+    const top = el.getBoundingClientRect().top + window.scrollY - NAVBAR_OFFSET;
+    window.scrollTo({ top, behavior: 'smooth' });
+  }, [location.pathname]);
+
   return (
     <div className="services-page">
       {/* Hero */}
@@ -101,20 +120,8 @@ export default function Services() {
           <div className="packages-section" id="home-cleaning-packages">
             <h3 className="packages-title">Home Cleaning Packages</h3>
             <div className="packages-grid">
-              {HOME_PACKAGES.map((pkg) => (
-                <div key={pkg.name} className={`package-card${pkg.popular ? ' popular' : ''}`}>
-                  {pkg.popular && <div className="package-badge">Best Value</div>}
-                  <h4>{pkg.name}</h4>
-                  <p className="pkg-rooms">{pkg.rooms}</p>
-                  <div className="pkg-hours">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
-                    </svg>
-                    {pkg.hours}
-                  </div>
-                  <div className="pkg-price">{pkg.price}</div>
-                  <Link to={`/book?service=home-cleaning&package=${encodeURIComponent(pkg.name)}`} className="btn btn-outline pkg-btn">Book</Link>
-                </div>
+              {HOME_CLEANING_PACKAGES.map((pkg) => (
+                <PackageCard key={pkg.id} pkg={pkg} serviceId="home-cleaning" />
               ))}
             </div>
           </div>
@@ -168,12 +175,7 @@ export default function Services() {
             <h3 className="packages-title">Furniture Cleaning Packages</h3>
             <div className="packages-grid furniture-packages">
               {FURNITURE_PACKAGES.map((pkg) => (
-                <div key={pkg.name} className={`package-card${pkg.popular ? ' popular' : ''}`}>
-                  {pkg.popular && <div className="package-badge">Best Value</div>}
-                  <h4>{pkg.name}</h4>
-                  <div className="pkg-price">{pkg.price}</div>
-                  <Link to={`/book?service=furniture-cleaning&package=${encodeURIComponent(pkg.name)}`} className="btn btn-outline pkg-btn">Book</Link>
-                </div>
+                <PackageCard key={pkg.id} pkg={pkg} serviceId="furniture-cleaning" />
               ))}
             </div>
           </div>
@@ -230,13 +232,7 @@ export default function Services() {
             <h3 className="packages-title">Car Wash Packages</h3>
             <div className="packages-grid carwash-packages">
               {CAR_WASH_PACKAGES.map((pkg) => (
-                <div key={pkg.name} className={`package-card${pkg.popular ? ' popular' : ''}`}>
-                  {pkg.popular && <div className="package-badge">Best Value</div>}
-                  <h4>{pkg.name}</h4>
-                  <p className="pkg-rooms">{pkg.desc}</p>
-                  <div className="pkg-price">{pkg.price}</div>
-                  <Link to={`/book?service=car-wash&package=${encodeURIComponent(pkg.name)}`} className="btn btn-outline pkg-btn">Book</Link>
-                </div>
+                <PackageCard key={pkg.id} pkg={pkg} serviceId="car-wash" />
               ))}
             </div>
           </div>

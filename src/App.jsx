@@ -18,8 +18,6 @@ function ScrollToTop() {
 }
 
 function Layout({ children }) {
-  const { pathname } = useLocation();
-  // Don't show footer on simple pages
   return (
     <>
       <Navbar />

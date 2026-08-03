@@ -1,18 +1,20 @@
 import { initializeApp } from 'firebase/app';
-import { getFirestore } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 
+// Public web config — safe to expose client-side. Used only for Firebase
+// Auth (admin login) now; Firestore reads/writes all go through the ShineX
+// API's Admin SDK instead (see server/), which is why `firebase/firestore`
+// isn't imported here anymore.
 const firebaseConfig = {
-  apiKey: "AIzaSyATr7fH7_f5WvoEp38rigLNz3D6LKhb4n4",
-  authDomain: "shinex-accba.firebaseapp.com",
-  projectId: "shinex-accba",
-  storageBucket: "shinex-accba.firebasestorage.app",
-  messagingSenderId: "812988087177",
-  appId: "1:812988087177:web:d35b432c14b41f96187f58",
-  measurementId: "G-4J2B8R6JCK"
+  apiKey: "AIzaSyDSPTY9AYEKbz9-A3_NXWWiUpY51lVh-ak",
+  authDomain: "shinex-e3f7d.firebaseapp.com",
+  projectId: "shinex-e3f7d",
+  storageBucket: "shinex-e3f7d.firebasestorage.app",
+  messagingSenderId: "288966539610",
+  appId: "1:288966539610:web:4b3632127f1a90c0d6db63",
+  measurementId: "G-6EGT4JW8YP",
 };
 
 const app = initializeApp(firebaseConfig);
-export const db = getFirestore(app);
 export const auth = getAuth(app);
 export default app;

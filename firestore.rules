@@ -1,0 +1,19 @@
+rules_version = '2';
+
+// All reads and writes to `bookings` now go exclusively through the ShineX
+// API's Firebase Admin SDK (see server/), which bypasses these rules
+// entirely — the Admin SDK always has full access regardless of what's
+// written here. This file's only job is to deny every direct client
+// request, so a browser can no longer read or write bookings straight
+// against Firestore the way the old client-side bookingService.js did.
+//
+// To apply: Firebase Console → Firestore Database → Rules → paste this in
+// → Publish. (Or `firebase deploy --only firestore:rules` if you have the
+// Firebase CLI set up with this project.)
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /bookings/{bookingId} {
+      allow read, write: if false;
+    }
+  }
+}

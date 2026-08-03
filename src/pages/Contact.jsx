@@ -1,9 +1,17 @@
 import { useState } from 'react';
-import { sendContactEmail } from '../services/emailService';
+import { useSearchParams } from 'react-router-dom';
+import { sendContactMessage } from '../services/contactService';
 import './Contact.css';
 
+// Valid <option> values on the subject select below — anything else in the
+// URL (typos, old links) falls back to the blank "Select a subject..." state
+// instead of silently selecting nothing in a way React would warn about.
+const SUBJECTS = ['booking', 'quote', 'complaint', 'feedback', 'other'];
+
 export default function Contact() {
-  const [form, setForm] = useState({ name: '', email: '', phone: '', subject: '', message: '' });
+  const [searchParams] = useSearchParams();
+  const initialSubject = SUBJECTS.includes(searchParams.get('subject')) ? searchParams.get('subject') : '';
+  const [form, setForm] = useState({ name: '', email: '', phone: '', subject: initialSubject, message: '' });
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
   const [isSending, setIsSending] = useState(false);
@@ -28,7 +36,7 @@ export default function Contact() {
     setIsSending(true);
     setSendError('');
     try {
-      await sendContactEmail(form);
+      await sendContactMessage(form);
       setSubmitted(true);
     } catch (err) {
       console.error('Contact email error:', err);
@@ -95,7 +103,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <h4>Email</h4>
-                  <a href="mailto:connect.shinex@gmail.com">connect.shinex@gmail.com</a>
+                  <a href="mailto:reviews.shinex@gmail.com">reviews.shinex@gmail.com</a>
                   <p>We reply within 24 hours</p>
                 </div>
               </div>
@@ -149,18 +157,18 @@ export default function Contact() {
                 <div className="form-group">
                   <label htmlFor="contact-name">Full Name *</label>
                   <input id="contact-name" type="text" placeholder="Your name" value={form.name} onChange={e => setField('name', e.target.value)} className={errors.name ? 'error' : ''} />
-                  {errors.name && <p className="form-error">{errors.name}</p>}
+                  {errors.name && <p className="form-error" role="alert">{errors.name}</p>}
                 </div>
                 <div className="form-row">
                   <div className="form-group">
                     <label htmlFor="contact-phone">Phone Number *</label>
                     <input id="contact-phone" type="tel" placeholder="+971 55 664 5537" value={form.phone} onChange={e => setField('phone', e.target.value)} className={errors.phone ? 'error' : ''} />
-                    {errors.phone && <p className="form-error">{errors.phone}</p>}
+                    {errors.phone && <p className="form-error" role="alert">{errors.phone}</p>}
                   </div>
                   <div className="form-group">
                     <label htmlFor="contact-email">Email (optional)</label>
                     <input id="contact-email" type="email" placeholder="your@email.com" value={form.email} onChange={e => setField('email', e.target.value)} className={errors.email ? 'error' : ''} />
-                    {errors.email && <p className="form-error">{errors.email}</p>}
+                    {errors.email && <p className="form-error" role="alert">{errors.email}</p>}
                   </div>
                 </div>
                 <div className="form-group">
@@ -177,7 +185,7 @@ export default function Contact() {
                 <div className="form-group">
                   <label htmlFor="contact-message">Message *</label>
                   <textarea id="contact-message" rows={5} placeholder="Write your message here..." value={form.message} onChange={e => setField('message', e.target.value)} className={errors.message ? 'error' : ''} />
-                  {errors.message && <p className="form-error">{errors.message}</p>}
+                  {errors.message && <p className="form-error" role="alert">{errors.message}</p>}
                 </div>
                 {sendError && (
                   <p style={{ color: '#EF4444', fontSize: '13px', marginBottom: '12px', padding: '10px 14px', background: '#FEF2F2', borderRadius: '8px' }}>

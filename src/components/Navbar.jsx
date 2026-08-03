@@ -6,6 +6,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
+  const hamburgerRef = useRef(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -14,8 +15,15 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
+    // The hamburger button itself sits outside menuRef (it's a sibling of the
+    // <nav>, not inside it), so without excluding it here too, clicking it to
+    // close the menu would fire this "outside click" handler AND the button's
+    // own onClick toggle in the same interaction — closing then immediately
+    // reopening it.
     const handler = (e) => {
-      if (menuRef.current && !menuRef.current.contains(e.target)) {
+      const clickedInsideMenu = menuRef.current?.contains(e.target);
+      const clickedHamburger = hamburgerRef.current?.contains(e.target);
+      if (!clickedInsideMenu && !clickedHamburger) {
         setMenuOpen(false);
       }
     };
@@ -42,8 +50,11 @@ export default function Navbar() {
         </nav>
 
         <button
+          ref={hamburgerRef}
+          type="button"
           className={`hamburger${menuOpen ? ' active' : ''}`}
           aria-label="Toggle menu"
+          aria-expanded={menuOpen}
           onClick={() => setMenuOpen(!menuOpen)}
         >
           <span></span>

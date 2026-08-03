@@ -1,16 +1,83 @@
-# React + Vite
+# ShineX
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Marketing + booking site for a Dubai cleaning company (home cleaning,
+furniture cleaning, car wash), with an admin dashboard for managing bookings.
 
-Currently, two official plugins are available:
+- **Frontend** — React 19 + Vite, deployed as a static site to GitHub Pages
+  at [shinex.best](https://shinex.best)
+- **Backend** — Express REST API (`server/`) using the Firebase Admin SDK for
+  Firestore, and Resend's HTTPS API for email notifications
+- **Auth** — Firebase Authentication (email/password) gates the admin
+  dashboard at `/admin`
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Architecture
 
-## React Compiler
+```
+Browser
+  │
+  ├─ Firebase Auth (client SDK)  ── admin sign-in only
+  │
+  └─ fetch → Express API (server/)
+                │
+                ├─ Firebase Admin SDK → Firestore   (bookings collection)
+                └─ Resend API → HTTPS               (booking/contact emails)
+```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+The frontend never talks to Firestore or an email provider directly — every
+booking, status update, and contact message goes through the API in
+`server/`. See `server/README.md` for why, and the full endpoint reference.
 
-## Expanding the ESLint configuration
+## Running locally
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+You need both halves running: the Vite dev server (frontend) and the
+Express API (backend).
+
+```bash
+npm install              # frontend deps
+cd server && npm install # backend deps (first-time only)
+cd ..
+
+npm run dev:all          # runs both together
+```
+
+Or run them in separate terminals:
+
+```bash
+npm run dev       # frontend → http://localhost:5173
+npm run server    # backend  → http://localhost:5000
+```
+
+**Before the backend will actually work**, it needs a Firebase service
+account key and (optionally, for email) a Resend API key — see
+`server/README.md` → Setup. Without them the API still starts for most of
+this, but nothing that touches Firestore or sends email will succeed.
+
+## Project structure
+
+```
+src/                 React frontend
+  pages/              Home, Services, Book, About, Contact, Admin
+  components/         Navbar, Footer
+  data/services.js    single source of truth for service names/packages/prices
+  services/           thin REST clients (bookingService, contactService)
+  config/
+    api.js             fetch wrapper for the backend
+    firebase.js         Firebase Auth client config (admin login only)
+
+server/              Express REST API — see server/README.md
+  src/
+    routes/ → controllers/ → services/
+    middleware/         auth verification, rate limiting, validation, errors
+    config/             env, Firebase Admin SDK init
+
+firestore.rules     denies all direct client access (server-only access via Admin SDK)
+```
+
+## Deployment
+
+- **Frontend**: `npm run deploy` builds and pushes `dist/` to the `gh-pages`
+  branch (GitHub Pages serves static files only — it cannot host `server/`).
+- **Backend**: needs its own host (Render, Railway, a VPS, etc.) since it's a
+  long-running Node process. Not yet deployed anywhere — currently built to
+  run locally. Once you have a URL for it, point the frontend at it via
+  `VITE_API_URL` (see `.env.example`).
