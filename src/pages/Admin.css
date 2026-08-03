@@ -1306,5 +1306,15 @@
   .admin-login-card h1 { font-size: 22px; }
   .stat-card__value { font-size: 21px; }
   .admin-drawer__actions { flex-wrap: wrap; }
-  .drawer-action { flex-basis: calc(50% - 4px); }
+  .drawer-action {
+    flex-basis: calc(50% - 4px);
+    padding: 10px 8px;
+    font-size: 12px;
+  }
+
+  /* "Bookings Dashboard" + divider are supplementary once the brand logo
+     is already shown — drop them so the header never fights the user
+     badge/refresh/logout controls for space on narrow phones. */
+  .admin-header-left h1,
+  .admin-brand-divider { display: none; }
 }
