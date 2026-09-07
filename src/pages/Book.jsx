@@ -1082,7 +1082,7 @@ export default function Book() {
 
             <div className="book-contact-help">
               <p>Need help?</p>
-              <a href="tel:+971556645537">+971 55 664 5537</a>
+              <a href="mailto:reviews.shinex@gmail.com">reviews.shinex@gmail.com</a>
               <a href="https://wa.me/971556645537" target="_blank" rel="noopener noreferrer">
                 Chat on WhatsApp
               </a>

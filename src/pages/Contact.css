@@ -1,6 +1,78 @@
 /* ── CONTACT PAGE ── */
 .contact-page { padding-top: 72px; }
 
+/* Temporary Notice Banner */
+.contact-notice-banner {
+  background: #FFFBEB;
+  border-top: 1px solid #FDE68A;
+  border-bottom: 3px solid #F59E0B;
+  padding: 20px 0;
+}
+
+.contact-notice-inner {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.contact-notice-icon {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  background: #FEF3C7;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #F59E0B;
+}
+
+.contact-notice-icon svg {
+  width: 22px;
+  height: 22px;
+  color: #D97706;
+}
+
+.contact-notice-content strong {
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+  color: #92400E;
+  margin-bottom: 6px;
+  letter-spacing: 0.2px;
+}
+
+.contact-notice-content p {
+  font-size: 13.5px;
+  color: #78350F;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.contact-notice-content p em {
+  font-style: italic;
+  font-weight: 600;
+}
+
+.contact-notice-content p strong {
+  display: inline;
+  font-weight: 700;
+  color: #92400E;
+}
+
+.contact-notice-content a {
+  color: #B45309;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.contact-notice-content a:hover {
+  color: #78350F;
+}
+
+
+
 .contact-hero {
   background: linear-gradient(135deg, var(--gray-900), var(--gray-800));
   padding: 60px 0;

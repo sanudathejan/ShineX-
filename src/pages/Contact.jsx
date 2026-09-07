@@ -40,7 +40,7 @@ export default function Contact() {
       setSubmitted(true);
     } catch (err) {
       console.error('Contact email error:', err);
-      setSendError('Failed to send message. Please try calling us directly at +971 55 664 5537.');
+      setSendError('Failed to send message. Please email us at reviews.shinex@gmail.com.');
     } finally {
       setIsSending(false);
     }
@@ -56,6 +56,31 @@ export default function Contact() {
           <p>We'd love to hear from you. Reach out any time!</p>
         </div>
       </section>
+
+      {/* Temporary Notice Banner */}
+      <div className="contact-notice-banner">
+        <div className="container">
+          <div className="contact-notice-inner">
+            <div className="contact-notice-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                <line x1="12" y1="9" x2="12" y2="13"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+            </div>
+            <div className="contact-notice-content">
+              <strong>Important Notice — Temporary Service Disruption</strong>
+              <p>
+                Our phone lines and WhatsApp are currently <em>temporarily unavailable</em>.
+                We sincerely apologise for any inconvenience this may cause.
+                During this period, please reach out to us <strong>exclusively via email</strong> at{' '}
+                <a href="mailto:reviews.shinex@gmail.com">reviews.shinex@gmail.com</a> — we will respond as promptly as possible.
+                Please refrain from calling or sending WhatsApp messages until further notice.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <div className="section container">
         <div className="contact-grid">
@@ -73,8 +98,6 @@ export default function Contact() {
                 </div>
                 <div>
                   <h4>Phone</h4>
-                  <a href="tel:+971556645537">+971 55 664 5537</a>
-                  <a href="tel:+971564305653">+971 56 430 5653</a>
                   <p>Sun – Thu: 8AM to 8PM</p>
                 </div>
               </div>
